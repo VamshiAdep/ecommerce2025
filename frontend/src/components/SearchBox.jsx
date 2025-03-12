@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
-import {
-  Form,
-  Button,
-  InputGroup,
-  OverlayTrigger,
-  Tooltip
-} from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { searchProduct, clearSearch } from '../slices/searchProductSlice';
+import { clearSearch, searchProduct } from '../slices/searchProductSlice';
 
 function SearchBox() {
   const [input, setInput] = useState('');
-
   const dispatch = useDispatch();
 
   const searchProductHandler = e => {
@@ -24,24 +17,23 @@ function SearchBox() {
     dispatch(clearSearch());
     setInput('');
   };
+
   return (
-    <Form onSubmit={searchProductHandler} className='d-flex'>
-      <InputGroup>
+    <Form onSubmit={searchProductHandler} className='search-box'>
+      <InputGroup className='custom-search'>
         <Form.Control
-          size='sm'
           type='text'
           value={input}
           onChange={e => setInput(e.target.value)}
           placeholder='Search Products...'
+          className='search-input'
         />
-        {input === '' ? (
-          ''
-        ) : (
-          <Button type='button' variant='light' onClick={clearSearchHandler}>
+        {input !== '' && (
+          <Button type='button' variant='light' onClick={clearSearchHandler} className='clear-btn'>
             <FaTimes />
           </Button>
         )}
-        <Button type='submit' variant='warning'>
+        <Button type='submit' variant='warning' className='search-btn'>
           <FaSearch />
         </Button>
       </InputGroup>
@@ -50,3 +42,5 @@ function SearchBox() {
 }
 
 export default SearchBox;
+// Compare this snippet from frontend/src/components/Product.jsx:
+// import { Card } from 'react-bootstrap';

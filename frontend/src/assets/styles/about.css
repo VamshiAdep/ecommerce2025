@@ -1,0 +1,72 @@
+/* About Page Styling */
+.about-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+  }
+  
+  /* Hero Section */
+  .about-hero {
+    background: url('https://source.unsplash.com/1600x600/?shopping,ecommerce') no-repeat center/cover;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    color: #007bff;
+
+    font-weight: bold;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  /* About Content */
+  .about-content {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .about-content h2 {
+    color: #007bff;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #007bff;
+    display: inline-block;
+  }
+  
+  .about-content p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  
+  .about-content ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .about-content ul li {
+    font-size: 1rem;
+    color: #333;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .about-content ul li strong {
+    margin-left: 5px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .about-hero {
+      font-size: 1.8rem;
+      height: 250px;
+    }
+  }
+  

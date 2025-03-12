@@ -1,34 +1,35 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '../App';
-import ProductPage from '../pages/ProductPage';
-import HomePage from '../pages/HomePage';
-import CartPage from '../pages/CartPage';
-import LoginPage from '../pages/LoginPage';
-import RegisterPage from '../pages/RegisterPage';
-import ShippingPage from '../pages/ShippingPage';
-import PrivateRoute from '../components/PrivateRoute';
-import PaymentPage from '../pages/PaymentPage';
-import PlaceOrderPage from '../pages/PlaceOrderPage';
-import OrderDetailsPage from '../pages/OrderDetailsPage';
-import ProfilePage from '../pages/ProfilePage';
 import AdminRoute from '../components/AdminRoute';
+import PrivateRoute from '../components/PrivateRoute';
 import OrderListPage from '../pages/admin/OrderListPage';
 import ProductListPage from '../pages/admin/ProductListPage';
 import UserListPage from '../pages/admin/UserListPage';
+import CartPage from '../pages/CartPage';
+import HomePage from '../pages/HomePage';
+import LoginPage from '../pages/LoginPage';
+import OrderDetailsPage from '../pages/OrderDetailsPage';
+import PaymentPage from '../pages/PaymentPage';
+import PlaceOrderPage from '../pages/PlaceOrderPage';
+import ProductPage from '../pages/ProductPage';
+import ProfilePage from '../pages/ProfilePage';
+import RegisterPage from '../pages/RegisterPage';
+import ShippingPage from '../pages/ShippingPage';
 // import CreateProductPage from '../pages/admin/CreateProductPage';
 // import UpdateProductPage from '../pages/admin/UpdateProductPage';
+import AdminDashboard from '../AdminDashboard';
+import AboutPage from '../pages/AboutPage';
+import AdminListPage from '../pages/admin/AdminListPage';
+import AdminLoginPage from '../pages/admin/AdminLoginPage';
+import AdminProfilePage from '../pages/admin/AdminProfilePage';
+import Dashboard from '../pages/admin/Dashboard';
 import ProductFormPage from '../pages/admin/ProductFormPage';
 import UpdateUserFormPage from '../pages/admin/UpdateUserFormPage';
+import ContactPage from '../pages/ContactPage';
 import NotFoundPage from '../pages/NotFoundPage';
-import AdminDashboard from '../AdminDashboard';
-import AdminLoginPage from '../pages/admin/AdminLoginPage';
-import Dashboard from '../pages/admin/Dashboard';
-import AdminProfilePage from '../pages/admin/AdminProfilePage';
-import AdminListPage from '../pages/admin/AdminListPage';
-import ResetPasswordRequestPage from '../pages/ResetPasswordRequestPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
-
+import ResetPasswordRequestPage from '../pages/ResetPasswordRequestPage';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <ProductPage />
+      },
+      {
+        path: 'about',  // ✅ Adding About Page Route
+        element: <AboutPage />
+      },
+      {
+        path: 'contact', 
+        element: <ContactPage />
       },
       {
         path: '/cart',
