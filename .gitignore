@@ -22,3 +22,10 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# # Path: .prettierrc
+# {
+#   "singleQuote": true,
+#   "trailingComma": "all",
+#   "printWidth": 100,
+#   "tabWidth": 2
+# # }
