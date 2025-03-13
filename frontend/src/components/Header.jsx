@@ -48,9 +48,7 @@ const Header = () => {
             <LinkContainer to='/contact'>
               <Nav.Link>Contact</Nav.Link>
             </LinkContainer>
-            <LinkContainer to='/products'>
-              <Nav.Link>Products</Nav.Link>
-            </LinkContainer>
+            
 
             {/* Cart */}
             <LinkContainer to='/cart'>

@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
-
 import {
-  Row,
-  Col,
-  ListGroup,
   Button,
-  Image,
   Card,
+  Col,
   Form,
-  ListGroupItem
+  Image,
+  ListGroup,
+  ListGroupItem,
+  Row
 } from 'react-bootstrap';
-import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  useGetProductDetailsQuery,
-  useCreateProductReviewMutation
-} from '../slices/productsApiSlice';
-import { addToCart } from '../slices/cartSlice';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
-import { addCurrency } from '../utils/addCurrency';
+import Rating from '../components/Rating';
 import Reviews from '../components/Reviews';
+import { addToCart } from '../slices/cartSlice';
+import {
+  useCreateProductReviewMutation,
+  useGetProductDetailsQuery
+} from '../slices/productsApiSlice';
+import { addCurrency } from '../utils/addCurrency';
 
 const ProductPage = () => {
   const { id: productId } = useParams();
@@ -31,36 +30,33 @@ const ProductPage = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
 
-  const { userInfo } = useSelector(state => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     data: product,
     isLoading,
-    error
+    error,
   } = useGetProductDetailsQuery(productId);
 
   const [createProductReview, { isLoading: isCreateProductReviewLoading }] =
     useCreateProductReviewMutation();
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     navigate('/cart');
   };
-  const submitHandler = async e => {
+
+  const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await createProductReview({
-        productId,
-        rating,
-        comment
-      });
+      const res = await createProductReview({ productId, rating, comment });
       if (res.error) {
         toast.error(res.error?.data?.message);
+      } else {
+        toast.success(res.data.message);
       }
-      toast.success(res.data.message);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -68,15 +64,14 @@ const ProductPage = () => {
     setRating(0);
     setComment('');
   };
+
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
-          {error?.data?.message || error.error}
-        </Message>
-      ) : (
+        <Message variant='danger'>{error?.data?.message || error.error}</Message>
+      ) : product ? ( // Ensure product exists before rendering
         <>
           <Link to='/' className='btn btn-light my-3'>
             Go Back
@@ -91,7 +86,7 @@ const ProductPage = () => {
                     product={product}
                     userInfo={userInfo}
                     rating={rating}
-                    laoding={isCreateProductReviewLoading}
+                    loading={isCreateProductReviewLoading} // Fixed typo
                     setRating={setRating}
                     comment={comment}
                     setComment={setComment}
@@ -106,17 +101,11 @@ const ProductPage = () => {
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
+                  <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                 </ListGroup.Item>
+                <ListGroup.Item>Price: {addCurrency(product.price)}</ListGroup.Item>
                 <ListGroup.Item>
-                  Price: {addCurrency(product.price)}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <strong> About this item:</strong>
-                  {product.description}
+                  <strong>About this item:</strong> {product.description}
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -147,16 +136,14 @@ const ProductPage = () => {
                           <Form.Control
                             as='select'
                             value={qty}
-                            onChange={e => setQty(Number(e.target.value))}
+                            onChange={(e) => setQty(Number(e.target.value))}
                           >
-                            {Array.from(
-                              { length: product.countInStock },
-                              (_, i) => (
-                                <option key={i + 1} value={i + 1}>
-                                  {i + 1}
-                                </option>
-                              )
-                            )}
+                            {/* Optimized Stock Options */}
+                            {[...Array(product.countInStock).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
                           </Form.Control>
                         </Col>
                       </Row>
@@ -183,7 +170,7 @@ const ProductPage = () => {
                 product={product}
                 userInfo={userInfo}
                 rating={rating}
-                laoding={isCreateProductReviewLoading}
+                loading={isCreateProductReviewLoading} // Fixed typo
                 setRating={setRating}
                 comment={comment}
                 setComment={setComment}
@@ -192,6 +179,8 @@ const ProductPage = () => {
             </Col>
           </Row>
         </>
+      ) : (
+        <Message variant='danger'>Product not found</Message>
       )}
     </>
   );
