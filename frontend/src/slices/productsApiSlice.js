@@ -1,67 +1,67 @@
-import { PRODUCTS_URL, UPLOAD_URL } from '../constants';
-import { apiSlice } from './apiSlice';
+import { PRODUCTS_URL, UPLOAD_URL } from "../constants";
+import { apiSlice } from "./apiSlice";
 
 export const productApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getProducts: builder.query({
-      query: ({ limit, skip, search }) => ({
+      query: ({ limit = 10, skip = 0, search = "" }) => ({
         url: PRODUCTS_URL,
-        params: { limit, skip, search }
+        params: { limit, skip, search },
       }),
-      providesTags: ['Product']
+      providesTags: ["Product"],
     }),
     getTopProducts: builder.query({
       query: () => ({
-        url: `${PRODUCTS_URL}/top`
+        url: `${PRODUCTS_URL}/top`,
       }),
-      providesTags: ['Product']
+      providesTags: ["Product"],
     }),
     getProductDetails: builder.query({
-      query: productId => ({
-        url: `${PRODUCTS_URL}/${productId}`
+      query: (productId) => ({
+        url: `${PRODUCTS_URL}/${productId}`,
       }),
-      providesTags: ['Product']
+      providesTags: ["Product"],
     }),
     createProduct: builder.mutation({
-      query: productData => ({
+      query: (productData) => ({
         url: PRODUCTS_URL,
-        method: 'POST',
-        body: productData
+        method: "POST",
+        body: productData,
       }),
-      invalidatesTags: ['Product']
+      invalidatesTags: ["Product"],
     }),
     updateProduct: builder.mutation({
       query: ({ productId, ...productData }) => ({
         url: `${PRODUCTS_URL}/${productId}`,
-        method: 'PUT',
-        body: { ...productData }
+        method: "PUT",
+        body: { ...productData },
       }),
-      invalidatesTags: ['Product']
+      invalidatesTags: ["Product"],
     }),
     deleteProduct: builder.mutation({
-      query: productId => ({
+      query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
-      invalidatesTags: ['Product']
+      invalidatesTags: ["Product"],
     }),
     uploadProductImage: builder.mutation({
-      query: data => ({
+      query: (data) => ({
         url: UPLOAD_URL,
-        method: 'POST',
-        body: data
+        method: "POST",
+        body: data,
       }),
-      invalidatesTags: ['Product']
+      invalidatesTags: ["Product"],
     }),
     createProductReview: builder.mutation({
       query: ({ productId, ...reviewData }) => ({
         url: `${PRODUCTS_URL}/reviews/${productId}`,
-        method: 'POST',
-        body: { ...reviewData }
+        method: "POST",
+        body: { ...reviewData },
       }),
-      invalidatesTags: ['Product']
-    })
-  })
+      invalidatesTags: ["Product"],
+    }),
+  }),
 });
 
 export const {
@@ -72,5 +72,5 @@ export const {
   useUploadProductImageMutation,
   useUpdateProductMutation,
   useCreateProductReviewMutation,
-  useGetTopProductsQuery
+  useGetTopProductsQuery,
 } = productApiSlice;

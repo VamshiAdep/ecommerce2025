@@ -14,6 +14,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import RegisterPage from "../pages/RegisterPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import ResetPasswordRequestPage from "../pages/ResetPasswordRequestPage";
+import ProductListUserPage from "../pages/ProductListUserPage";
 
 // Product & Order Pages
 import CartPage from "../pages/CartPage";
@@ -49,7 +50,11 @@ const RoutesComponent = () => {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="reset-password" element={<ResetPasswordRequestPage />} />
-          <Route path="reset-password/:id/:token" element={<ResetPasswordPage />} />
+          <Route
+            path="reset-password/:id/:token"
+            element={<ResetPasswordPage />}
+          />
+          <Route path="product-list-user" element={<ProductListUserPage />} />
 
           {/* Protected Routes */}
           <Route element={<PrivateRoute />}>
