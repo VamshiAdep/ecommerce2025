@@ -6,6 +6,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
     getProducts: builder.query({
       query: ({ limit = 10, skip = 0, search = "" }) => ({
         url: PRODUCTS_URL,
+        method: "GET",
         params: { limit, skip, search },
       }),
       providesTags: ["Product"],
@@ -55,7 +56,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
     }),
     createProductReview: builder.mutation({
       query: ({ productId, ...reviewData }) => ({
-        url: `${PRODUCTS_URL}/reviews/${productId}`,
+        url: `${PRODUCTS_URL}/${productId}/reviews`,
         method: "POST",
         body: { ...reviewData },
       }),
